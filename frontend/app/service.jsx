@@ -1,14 +1,25 @@
 'use client'
+
 import { useEffect, useState } from "react";
 import { ReactTyped } from "react-typed";
 import { getExportingVariable1, setExportingVariable1 } from "../config"; // Importing the setter function
+import { fetchInventoryAssets } from "../../utils";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [s3Url, setS3Url] = useState(""); // State to hold the S3 URL
   const [ket, setKey]=useState("");
+  const [inventory, setInventory] = useState([]);
 
+  useEffect(() => {
+    fetchInventory();
+}, []);
+
+  async function fetchInventory() {
+    const data = await fetchInventoryAssets();
+    setInventory(data);
+}
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -40,6 +51,7 @@ const UploadForm = () => {
       const s3 = data.s3Url;      // Set the S3 URL in the state
       setS3Url(s3);
       console.log(data.fileName);
+      fetchInventory(s3Url);
 
       // Set the exportingVariable1 value
       
@@ -52,7 +64,7 @@ const UploadForm = () => {
 
   // Use useEffect to log s3Url after it's updated
   useEffect(() => {
-    console.log(s3Url);
+    console.log("s3url:", s3Url);
     setExportingVariable1(s3Url);
     console.log( getExportingVariable1(s3Url))
   }, [s3Url]);
