@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import cors from "cors";
+import { getExportingVariable1 } from "../../config";
+
 const Solution = ({ s3Key }) => {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
@@ -11,10 +12,38 @@ const Solution = ({ s3Key }) => {
     setQuery(e.target.value);
   };
 
+  const s3Url = getExportingVariable1();
+  const walletAddress = "0x48e6a467852Fa29710AaaCDB275F85db4Fa420eB";
+
+  // const mapS3Url = (walletAddress, s3Url) => {
+  //   const data = {
+  //     wallet_address: walletAddress,
+  //     s3url: s3Url
+  //   };
+
+  //   fetch("https://echogpt-zvglklnxya-em.a.run.app/mapS3Url", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify(data)
+  //   })
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => console.log(data))
+  //     .catch(error => console.error("Error:", error));
+  // };
+
   const handleSendQuery = async () => {
+    
     setLoading(true);
-    let Key = "exportingVariable";
+    const Key = "JODHPUR SHADUL BAIL.docx";
     const url = "https://echogpt-zvglklnxya-em.a.run.app/chat";
+  
     const payload = { user_query: query, key: Key };
 
     try {
@@ -26,22 +55,22 @@ const Solution = ({ s3Key }) => {
         body: JSON.stringify(payload),
       });
 
-      const responseData = await res.json();
-      console.log("Response Status Code:", res.status);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
+      }
 
+      const responseData = await res.json();
       const botResponse = responseData.response;
       const chatHistory = responseData.chat_history;
 
       setMessages([...messages, { user: query, bot: botResponse }]);
-      // If you want to include chat history, you can update the state accordingly
-      // setMessages([...messages, ...chatHistory]);
     } catch (error) {
       console.error("Error:", error);
       setError(error.message);
+    } finally {
+      setQuery("");
+      setLoading(false);
     }
-
-    setQuery("");
-    setLoading(false);
   };
 
   return (
@@ -53,11 +82,11 @@ const Solution = ({ s3Key }) => {
           className="w-screen h-screen  "
         />
       </div>
-      <div className="absolute top-32 right-20 items-center">
+      <div className="absolute top-44 right-20 items-center">
         <h1 className="font-bold flex items-center text-3xl text-[#195f4e] mb-10">
           Hey , I am Your Personal Legal Help
         </h1>
-        <div className="border-solid border-[#F1AA6C] border-4 rounded-xl p-40 mb-4 w-full max-h-96 overflow-y-auto bg-transparent ">
+        <div className="border-solid border-[#F1AA6C] border-4 rounded-xl p-4 mb-4 w-[70vh] max-h-96 overflow-y-auto bg-transparent font-bold  ">
           {messages.map((message, index) => (
             <div key={index} className="mb-2">
               <p className="p-2">User: {message.user}</p>
@@ -76,7 +105,7 @@ const Solution = ({ s3Key }) => {
           <button
             onClick={handleSendQuery}
             disabled={loading}
-            className="border-solid border-2 border-[#F1AA6C] rounded-md  bg-[#F1AA6C] hover:bg-[#cd905a] text-white relative -top-20 px-8 py-2 shadow-lg ease-in-out duration-500"
+            className="border-solid border-2 border-black rounded-md  bg-[#F1AA6C] hover:bg-[#cd905a] text-white relative -top-20 px-8 py-2 shadow-lg ease-in-out duration-500"
           >
             Send
           </button>
