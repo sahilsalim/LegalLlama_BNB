@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { ReactTyped } from "react-typed";
-import { getExportingVariable1, setExportingVariable1 } from "../config"; // Importing the setter function
-import { fetchInventoryAssets } from "../../utils";
+import { getExportingVariable1, setExportingVariable1 , exportingVariable1} from "../config"; // Importing the setter function
+import { fetchInventoryAssets , createAssetOnChain} from "../utils";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
@@ -11,7 +11,7 @@ const UploadForm = () => {
   const [s3Url, setS3Url] = useState(""); // State to hold the S3 URL
   const [ket, setKey]=useState("");
   const [inventory, setInventory] = useState([]);
-
+  const [loading , setLoading] = useState(false);
   useEffect(() => {
     fetchInventory();
 }, []);
@@ -34,7 +34,7 @@ const UploadForm = () => {
     setTimeout(()=>{
       setUploading(false);
       window.location.href='/solutions';
-    },2000);
+    },70000);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -53,12 +53,15 @@ const UploadForm = () => {
       console.log(data.fileName);
       fetchInventory(s3Url);
 
-      // Set the exportingVariable1 value
+      setLoading(true);
+      const assetResponse = await createAssetOnChain(s3Url);
+      setLoading(false);
+   
       
     } catch (error) {
       console.log(error);
     } finally {
-      setUploading(false); // Reset uploading state after fetch
+      setUploading(false); 
     }
   };
 
@@ -66,7 +69,7 @@ const UploadForm = () => {
   useEffect(() => {
     console.log("s3url:", s3Url);
     setExportingVariable1(s3Url);
-    console.log( getExportingVariable1(s3Url))
+    console.log(getExportingVariable1(s3Url))
   }, [s3Url]);
 
   return (
@@ -78,7 +81,7 @@ const UploadForm = () => {
         <div className="flex">
           <div>
 
-          <img src="/upload.jpg" alt="upload" className="w-[700px] h-[400px] relative top-36 left-20" />
+          <img src="/upload.jpg" alt="upload" className="w-[600px] h-[350px] relative top-80 left-40 rounded-lg" />
           </div>
 
           <div className="text-2xl text-slate-600 absolute p-15 right-10 items-end">
@@ -90,13 +93,13 @@ const UploadForm = () => {
 
             <form
               onSubmit={handleSubmit}
-              className="mt-24 bg-white p-2 rounded-2xl"
+              className="mt-24 bg-white p-2 rounded-2xl right-24"
             >
-              <input type="file" accept="docx" onChange={handleFileChange} className="bg-slate-100 rounded-xl" />
+              <input type="file" accept="docx" onChange={handleFileChange} className="bg-slate-100 rounded-xl font-thin text-lg right-12" />
               <button
                 type="submit"
                 disabled={!file || uploading}
-                className="bg-[#33BF92] py-1 px-4 text-black border-2 border-[#8DD8F4] rounded-md hover:bg-[#9aedd4] shadow-2xl relative top-20 right-24 cursor-pointer text-lg ease-in-out duration-500"
+                className="bg-[#33BF92] py-1 px-4 text-black border-2 border-[#8DD8F4] rounded-md hover:bg-[#9aedd4] shadow-2xl relative top-20 right-28 cursor-pointer text-lg ease-in-out duration-500"
               >
                 {uploading ? "Uploading.." : "Upload"}
               </button>

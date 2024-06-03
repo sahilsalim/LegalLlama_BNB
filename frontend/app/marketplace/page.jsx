@@ -13,7 +13,7 @@ const MarketPlace = () => {
           <div className="w-72 h-72 absolute left-0 -top-2 rounded-ee-full bg-gradient-to-r from-[#fee6b7] via-[#fff2da] to-[#fef9ec]"></div>
         </div>
             <div>
-            <h1 className="text-4xl font-bold relative top-32 text-center w-screen underline">Secretive Asset</h1>
+            <h1 className="text-4xl font-bold relative top-32 text-center underline">Secretive Asset</h1>
             </div>
         <div className="flex flex-wrap justify-center absolute top-24 left-12">
             {/* Map over the data array to render each box dynamically */}
@@ -28,7 +28,7 @@ const MarketPlace = () => {
                         {/* You can add more dynamic content here if needed */}
                     </p>
                     <div className="w-full">
-                        <button className="p-1 px-20 text-black font-bold bg-[#F4C376] hover:bg-[#e9d1aa] mt-2 rounded-md text-sm border-2 border-[#8a652e] ">
+                        <button className="p-1 px-20 text-black font-bold bg-[#F4C376] hover:bg-[#bd7e46] mt-2 rounded-md text-sm border-2 border-[#8a652e] ">
                             Unlock
                         </button>
                         {/* <button className="p-1 px-8 text-white bg-blue-600 hover:bg-blue-700 mt-2 rounded-md text-sm ml-2">

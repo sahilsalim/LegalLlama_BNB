@@ -19,20 +19,15 @@ const Navbar = () => {
                     />
                 </Link>
                 <ul className="absolute flex space-x-7 right-10 top-4">
+                    
                     <li
-                        className="px-6 py-2 text-black bg-[#F4C376] hover:bg-[#e9d1aa] hover:cursor-pointer ease-in-out duration-500 rounded-md md:ml-5 border-2 border-[#8a652e] "
-                        onClick={() => router.push("/")}
-                    >
-                        Services
-                    </li>
-                    <li
-                        className="px-6 py-2 text-black bg-[#F4C376] hover:bg-[#e9d1aa] hover:cursor-pointer ease-in-out duration-500 rounded-md md:ml-5 border-2 border-[#8a652e]"
+                        className="px-6 py-2 text-black bg-[#F4C376] hover:bg-[#bd7e46] hover:cursor-pointer ease-in-out duration-500 rounded-md md:ml-5 border-2 border-[#8a652e]"
                         onClick={() => router.push("/inventory")}
                     >
                         Inventory
                     </li>
                     <li
-                        className="px-6 py-2 text-black bg-[#F4C376] hover:bg-[#e9d1aa] hover:cursor-pointer ease-in-out duration-500 rounded-md md:ml-5 border-2 border-[#8a652e]"
+                        className="px-6 py-2 text-black bg-[#F4C376] hover:bg-[#bd7e46] hover:cursor-pointer ease-in-out duration-500 rounded-md md:ml-5 border-2 border-[#8a652e]"
                         onClick={() => router.push("/marketplace")}
                     >
                         Secretive Assets

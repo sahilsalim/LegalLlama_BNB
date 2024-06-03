@@ -38,7 +38,9 @@ export async function createAssetOnChain(_tokenURI) {
     // console.log("inputsFormat", inputsFormat);
     const tokenId = await contract.mintPDF(address);
     await tokenId.wait();
-    const tx = await contract.setURI(tokenId, _tokenURI);
+    const tokenIdNumber = 1;
+    console.log(tokenIdNumber)
+    const tx = await contract.setURI(tokenIdNumber, _tokenURI);
     await tx.wait()
     fetchAllAssets();
     console.log("Mint api called");

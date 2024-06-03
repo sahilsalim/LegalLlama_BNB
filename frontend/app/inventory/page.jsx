@@ -21,7 +21,7 @@ const inventory = () => {
                 <div className="w-72 h-72 absolute left-0 -top-2 rounded-ee-full bg-gradient-to-r from-[#fee6b7] via-[#fff2da] to-[#fef9ec]"></div>
             </div>
             <div>
-                <h1 className="text-4xl font-bold relative top-32 text-center w-screen underline">
+                <h1 className="text-4xl font-bold relative top-32 text-center underline">
                     Inventory
                 </h1>
             </div>
@@ -48,11 +48,11 @@ const inventory = () => {
                                 </a>
                             </div>
                         </div>
-                        <p className="text-gray-600 text-ellipsis whitespace-nowrap overflow-hidden w-full mt-2">
+                        <p className="text-gray-600 text-ellipsis whitespace-nowrap overflow-hidden mt-2">
                             {/* You can add more dynamic content here if needed */}
                         </p>
-                        <div className="w-full">
-                            <button className="p-1 px-20 text-black font-bold bg-[#F4C376] hover:bg-[#e9d1aa] mt-2 rounded-md text-sm border-2 border-[#8a652e] ease-in-out duration-500">
+                        <div className="">
+                            <button className="p-1 px-20 text-black font-bold bg-[#F4C376] hover:bg-[#bd7e46] mt-2 rounded-md text-sm border-2 border-[#8a652e] ease-in-out duration-500">
                                 Sell
                             </button>
                             {/* <button className="p-1 px-8 text-white bg-blue-600 hover:bg-blue-700 mt-2 rounded-md text-sm ml-2">
