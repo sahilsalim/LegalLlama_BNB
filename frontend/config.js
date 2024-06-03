@@ -3,6 +3,7 @@ export let  exportingVariable1=""
 
 
 
+
 export function setExportingVariable1(value) {
     exportingVariable1 = value;
     exportingVariable=0

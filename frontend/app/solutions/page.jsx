@@ -15,33 +15,33 @@ const Solution = ({ s3Key }) => {
   const s3Url = getExportingVariable1();
   const walletAddress = "0x48e6a467852Fa29710AaaCDB275F85db4Fa420eB";
 
-  // const mapS3Url = (walletAddress, s3Url) => {
-  //   const data = {
-  //     wallet_address: walletAddress,
-  //     s3url: s3Url
-  //   };
+  const mapS3Url = (walletAddress, s3Url) => {
+    const data = {
+      wallet_address: walletAddress,
+      s3url: s3Url
+    };
 
-  //   fetch("https://echogpt-zvglklnxya-em.a.run.app/mapS3Url", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify(data)
-  //   })
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(data => console.log(data))
-  //     .catch(error => console.error("Error:", error));
-  // };
+    fetch("https://echogpt-zvglklnxya-em.a.run.app/mapS3Url", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => console.log(data))
+      .catch(error => console.error("Error:", error));
+  };
 
   const handleSendQuery = async () => {
     
     setLoading(true);
-    const Key = "JODHPUR SHADUL BAIL.docx";
+    const Key = '{s3Key}';
     const url = "https://echogpt-zvglklnxya-em.a.run.app/chat";
   
     const payload = { user_query: query, key: Key };
