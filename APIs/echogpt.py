@@ -1,7 +1,8 @@
 import os
 from typing import List
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Query
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_community.document_loaders import S3FileLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -11,6 +12,7 @@ from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
+from unstructured.partition.docx import partition_docx
 import boto3
 from contextlib import asynccontextmanager
 
@@ -30,6 +32,15 @@ class AppState:
 state = AppState()
 
 app = FastAPI()
+
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+)
 
 class ChatRequest(BaseModel):
     user_query: str
@@ -100,6 +111,27 @@ async def chat(request: ChatRequest):
 
     return {"response": response, "chat_history": [msg.content for msg in state.chat_history]}
 
+
+wallet_to_s3url = {}
+
+class WalletS3UrlMapping(BaseModel):
+    wallet_address: str
+    s3url: str
+
+
+@app.post("/mapS3Url")
+async def map_s3url(mapping: WalletS3UrlMapping):
+    wallet_to_s3url[mapping.wallet_address] = mapping.s3url
+    return {"message": "S3 URL mapped to wallet address successfully"}
+
+@app.get("/getS3Url")
+async def get_s3url(wallet_address: str = Query(...)):
+    s3url = wallet_to_s3url.get(wallet_address)
+    if s3url:
+        return { wallet_address : s3url}
+    else:
+        raise HTTPException(status_code=404, detail="Wallet address not found")
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app,port=int(os.environ.get('PORT', 8000)), host="127.0.0.1")
+    uvicorn.run(app,port=int(os.environ.get('PORT', 8080)), host="0.0.0.0")
