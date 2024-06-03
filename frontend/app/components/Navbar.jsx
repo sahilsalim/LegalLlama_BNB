@@ -1,5 +1,5 @@
 'use client'
-import Link from "next/link";
+
 import {useRouter} from 'next/navigation';
 
 const address ="0x48e6a467852Fa29710AaaCDB275F85db4Fa420eBcx";
@@ -11,7 +11,7 @@ const Navbar = () => {
         <ul className="absolute flex space-x-7 right-10 top-4">
           <li className="px-6 py-2 text-black bg-[#F4C376] hover:bg-[#e9d1aa] hover:cursor-pointer ease-in-out duration-500 rounded-md md:ml-5 border-2 border-[#8a652e]" onClick={() => router.push("/inventory")}>Inventory</li>
           <li className="px-6 py-2 text-black bg-[#F4C376] hover:bg-[#e9d1aa] hover:cursor-pointer ease-in-out duration-500 rounded-md md:ml-5 border-2 border-[#8a652e]" onClick={() => router.push("/marketplace")}>
-            MarketPlace
+          Secretive Assets
           </li>
           <li>
           <button

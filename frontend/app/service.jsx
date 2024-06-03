@@ -60,6 +60,9 @@ const UploadForm = () => {
   return (
     <>
       <div>
+      <div className="absolute left-0 top-0 h-full w-2/3 overflow-hidden">
+          <div className="w-72 h-72 absolute left-0 -top-2 rounded-ee-full bg-gradient-to-r from-[#fee6b7] via-[#fff2da] to-[#fef9ec]"></div>
+        </div>
         <div className="flex">
           <div>
 
@@ -83,7 +86,7 @@ const UploadForm = () => {
                 disabled={!file || uploading}
                 className="bg-[#33BF92] py-1 px-4 text-black border-2 border-[#8DD8F4] rounded-md hover:bg-[#9aedd4] shadow-2xl relative top-20 right-24 cursor-pointer text-lg ease-in-out duration-500"
               >
-                {uploading ? "Uploading..." : "Upload"}
+                {uploading ? "Uploading.." : "Upload"}
               </button>
             </form>
           </div>

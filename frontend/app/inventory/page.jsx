@@ -9,7 +9,9 @@ const inventory = () => {
 
     return (
             <div>
-
+      <div className="absolute left-0 top-0 h-full w-2/3 overflow-hidden">
+          <div className="w-72 h-72 absolute left-0 -top-2 rounded-ee-full bg-gradient-to-r from-[#fee6b7] via-[#fff2da] to-[#fef9ec]"></div>
+        </div>
             <div>
             <h1 className="text-5xl font-bold relative top-8 pl-16 w-screen ">Inventory</h1>
             </div>
