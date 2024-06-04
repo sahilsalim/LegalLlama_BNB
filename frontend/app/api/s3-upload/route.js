@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-
+// Initialize S3 client
 const s3Client = new S3Client({
     region: process.env.NEXT_PUBLIC_MY_REGION,
     credentials: {
@@ -10,44 +10,47 @@ const s3Client = new S3Client({
     }
 });
 
-export async function uploadFileToS3(file, fileName) {
-    const fileBuffer = file;
-
+// Function to upload file to S3
+export async function uploadFileToS3(fileBuffer, fileName, contentType) {
     const params = {
         Bucket: process.env.NEXT_PUBLIC_MY_S3_BUCKET_NAME,
-        Key: `${fileName}`,
+        Key: fileName,
         Body: fileBuffer,
-        ContentType: ".docx"
+        ContentType: contentType
     };
 
-    // const key = exportingVariable; // Corrected variable name
-
-    console.log(params.Key);
-
+    // Upload file to S3
     const command = new PutObjectCommand(params);
     await s3Client.send(command);
 
     // Construct S3 URL
     const s3Url = `https://${process.env.NEXT_PUBLIC_MY_S3_BUCKET_NAME}.s3.amazonaws.com/${fileName}`;
-    console.log(s3Url);
 
     return { ...params, s3Url };
 }
 
+// Handler for POST request
 export async function POST(request) {
     try {
+        // Get form data from request
         const formData = await request.formData();
         const file = formData.get("file");
 
+        // Check if file exists in form data
         if (!file) {
             return NextResponse.json({ error: "File is required." }, { status: 400 });
         }
 
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const { Key: fileName, s3Url } = await uploadFileToS3(buffer, file.name);
+        // Convert file to buffer
+        const fileBuffer = Buffer.from(await file.arrayBuffer());
 
+        // Upload file to S3
+        const { fileName, s3Url } = await uploadFileToS3(fileBuffer, file.name, file.type);
+
+        // Return success response
         return NextResponse.json({ success: true, fileName, s3Url });
     } catch (error) {
-        return NextResponse.json({ error: error.message }); // Updated to include error message
+        // Return error response
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

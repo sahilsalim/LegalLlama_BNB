@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { ReactTyped } from "react-typed";
-import { getExportingVariable1, setExportingVariable1 , exportingVariable1} from "../config"; // Importing the setter function
-import { fetchInventoryAssets , createAssetOnChain} from "../utils";
+import { getExportingVariable1, setExportingVariable1 } from "../config"; // Importing the setter function
+import { createAssetOnChain, fetchInventoryAssets } from "../utils";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
@@ -34,7 +34,7 @@ const UploadForm = () => {
     setTimeout(()=>{
       setUploading(false);
       window.location.href='/solutions';
-    },70000);
+    },60000);
 
     const formData = new FormData();
     formData.append("file", file);
