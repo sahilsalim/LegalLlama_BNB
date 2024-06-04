@@ -1,14 +1,42 @@
-export let exportingVariable = 0;
+export let exportingVariable = "";
 export let exportingVariable1 = "";
+export let exportingKey=""
+
 
 export function setExportingVariable1(value) {
     exportingVariable1 = value;
-    exportingVariable = 0;
+    
+
 }
 
 export function getExportingVariable1() {
     return exportingVariable1;
+  
+
+}
+export async function setExportingKey(value) {
+    exportingKey = value;
+    
+
+}
+
+export async  function getExportingKey() {
+    return exportingKey;
+	
+  
+
+}
+
+export function setExportingVariable(value) {
+    exportingVariable1 = value;
+   
+
+}
+
+export function getExportingVariable() {
     return exportingVariable;
+   
+
 }
 
 export const address = `0x521aCBF4129dc23144ef37dD26E9d82144DE5388`;

@@ -1,8 +1,8 @@
 "use client"
 import { useState, useEffect } from "react";
-import { exportingVariable1 } from "../../config";
+import { exportingVariable1, getExportingKey , exportingKey } from "../../config";
 
-const Solution = ({ s3Key }) => {
+const Solution = ({ s3key }) => {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -14,7 +14,7 @@ const Solution = ({ s3Key }) => {
 
   const s3Url = exportingVariable1;
   const walletAddress = "0x48e6a467852Fa29710AaaCDB275F85db4Fa420eB";
-
+ 
   const mapS3Url = (walletAddress, s3Url) => {
     const data = {
       wallet_address: walletAddress,
@@ -43,10 +43,15 @@ const Solution = ({ s3Key }) => {
   }, [walletAddress, s3Url]);
 
   const handleSendQuery = async () => {
+
+   
+    const Key1 = "JODHPUR_SHADUL_BAIL.docx";
+    console.log(Key1);
+
     setLoading(true);
     const url = "https://echogpt-zvglklnxya-em.a.run.app/chat";
 
-    const payload = { user_query: query, key: s3Key };
+    const payload = { user_query: query, key: Key1 };
 
     try {
       const res = await fetch(url, {
@@ -85,15 +90,15 @@ const Solution = ({ s3Key }) => {
           className="w-screen h-screen"
         />
       </div>
-      <div className="absolute top-44 right-20 items-center">
+      <div className="absolute top-28 right-20 items-center">
         <h1 className="font-bold flex items-center text-3xl text-[#195f4e] mb-10">
           Hey , I am Your Personal Legal Help
         </h1>
         <div className="border-solid border-[#F1AA6C] border-4 rounded-xl p-4 mb-4 w-[70vh] max-h-96 overflow-y-auto bg-transparent font-bold">
           {messages.map((message, index) => (
             <div key={index} className="mb-2">
-              <p className="p-2">User: {message.user}</p>
-              <p className="p-2">Bot: {message.bot}</p>
+              <p className="p-1 m-1 rounded-xl text-black border border-[#193A52] bg-[#eedcb7] ">ME: {message.user}</p>
+              <p className="p-1 m-1 rounded-xl text-black border border-[#193A52] bg-[#a9cab1]">BOT: {message.bot}</p>
             </div>
           ))}
         </div>
